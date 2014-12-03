@@ -18,7 +18,7 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6, .navbar{
     text-transform: uppercase;
     font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
@@ -38,9 +38,17 @@ hr {
 
 .brand,
 .address-bar {
-    display: none;
+    display: inline-block;
 }
 
+        
+.jumbotron{
+    text-align: center;
+      font-family: palatino linotype;
+    font-size: 30px;    
+    color: #000;
+    text-align: center;
+}
 .navbar-brand {
     text-transform: uppercase;
     font-weight: 900;
@@ -153,7 +161,7 @@ footer p {
     }
 
     .navbar-header {
-        display: none;
+        display: inline-block;
     }
 
     .navbar {
