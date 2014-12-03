@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Resources</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="css/sb-admin.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="font-awesome-4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span> <span
+				class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">Resource Allocation
+				Load Balancing</a>
+			</div>
+			<!-- Top Menu Items -->
+			<ul class="nav navbar-right top-nav">
+				<li class="dropdown"><a href="index.html"><i
+					class="glyphicon glyphicon-home"></i> </a> <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav side-nav">
+							<li class="active"><a href="index.html"><i
+								class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+								<li><a href="charts.html"><i
+									class="fa fa-fw fa-bar-chart-o"></i> Charts</a></li>
+									<li><a href="tables.html"><i class="fa fa-fw fa-table"></i>
+										Tables</a></li>
+										<li><a href="forms.html"><i class="fa fa-fw fa-edit"></i>
+											Forms</a></li>
+											<li><a href="bootstrap-elements.html"><i
+												class="fa fa-fw fa-desktop"></i> Billing</a></li>
+												<li><a href="bootstrap-grid.html"><i
+													class="fa fa-fw fa-wrench"></i> Request Resources</a></li>
+												</ul>
+											</div> <!-- /.navbar-collapse -->
+										</nav>
+
+										<div id="page-wrapper">
+
+											<div class="container-fluid">
+
+												<!-- Page Heading -->
+												<div class="row">
+													<div class="col-lg-12">
+														<h1 class="page-header">Forms</h1>
+														<ol class="breadcrumb">
+															<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+															</li>
+															<li class="active"><i class="fa fa-edit"></i> Forms</li>
+														</ol>
+													</div>
+												</div>
+												<!-- /.row -->
+												<h1>Upload your file</h1>
+												<form id="resources" method="post"
+												action="http://localhost:8888/requestHandler.js" class="resources">
+												<div class="input-group">
+													<label> File Upload:
+														<form action="post">
+															<input type="file" id="fileupload" name="fileupload"
+															accept=".csv"> <br>
+														</div>
+				 <!--    <div class=<"btn-group">
+						<button id = "btn1" class = "btn btn-default" onclick ="sendToServer()"> Submit </button>
+									<button id = "btn2" class = "btn btn-default" onclick ="refresh()"> Reset </button>
+								</div> -->
+							</form>
+						</label>
+						<div id="container"
+						style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+						<!-- jQuery -->
+						<script src="js/jquery.js"></script>
+						
+						<script
+						src="http://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+						<script src="http://code.highcharts.com/highcharts.js"></script>
+						<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+						<!-- Bootstrap Core JavaScript -->
+						<script src="js/bootstrap.min.js"></script>
+						<script>
+						var data = null;
+						var chartType = "vBarGraph"; 
+
+						function refresh()
+						{
+							window.location.reload();
+						}  
+						
+						$(document).ready(function(){
+
+							if (chartType == "hBarGraph")
+							{
+								var options = {
+									chart: {
+										renderTo: 'container',
+										defaultSeriesType: 'column'
+									},
+									title: {
+										text: 'Fruit Consumption'
+									},
+									xAxis: {
+										categories: []
+									},
+									yAxis: {
+										title: {
+											text: 'Units'
+										}
+									},
+									series: []
+								};
+
+								document.getElementById('fileupload').addEventListener('change', upload, false);
+
+								function browserSupportFileUpload()
+								{
+									var isCompatible = false;
+									if(window.File && window.FileReader  && window.FileList && window.Blob)
+									{
+										isCompatible = true;
+									}
+									return isCompatible;
+								}
+								function upload(event)
+								{
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else if (chartType == "hBarGraph")
+									{
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+						// Iterate over the lines and add categories or series
+												$.each(lines, function(lineNo, line) {
+													var items = line.split(',');
+													
+													// header line containes categories
+													if (lineNo == 0) {
+														$.each(items, function(itemNo, item) {
+															if (itemNo > 0) options.xAxis.categories.push(item);
+														});
+													}
+													
+													// the rest of the lines contain data with their name in the first 
+													// position
+													else {
+														var series = {
+															data: []
+														};
+														$.each(items, function(itemNo, item) {
+															if (itemNo == 0) {
+																series.name = item;
+															} else {
+																series.data.push(parseFloat(item));
+															}
+														});
+														
+														options.series.push(series);
+														
+													}
+								
+													});
+
+													
+													// Create the chart
+													var chart = new Highcharts.Chart(options);
+											}
+											else
+											{
+												alert("no data to import");
+											}
+
+											};
+						reader.onerror = function(){
+							alert("unable to read "+file.fileName);
+						}
+						}
+
+						};
+						}
+					
+
+					else if (chartType == "vBarGraph")
+					{
+						var options = {
+							chart: {
+								renderTo: 'container',
+								defaultSeriesType: 'bar'
+							},
+							title: {
+								text: 'Fruit Consumption'
+							},
+							xAxis: {
+								categories: []
+							},
+							yAxis: {
+								title: {
+									text: 'Units'
+								}
+							},
+							series: []
+						};
+
+						document.getElementById('fileupload').addEventListener('change', upload, false);
+
+						function browserSupportFileUpload()
+						{
+							var isCompatible = false;
+							if(window.File && window.FileReader  && window.FileList && window.Blob)
+							{
+								isCompatible = true;
+							}
+							return isCompatible;
+						}
+						function upload(event)
+						{
+							if(!browserSupportFileUpload)
+							{
+								alert("File API not supported in this browser");
+							}
+							else if (chartType == "hBarGraph")
+							{
+								var file = event.target.files[0];
+								var reader = new FileReader();
+								reader.readAsText(file);
+								reader.onload = function(event)
+								{
+									var data = event.target.result;
+															//data = $.csv.toArrays(csvData);
+															if(data && $.csv.toArrays(data).length >0)
+															{
+																alert("imported -" +data.length + "-rows successfully!");
+
+																var lines = data.split('\n');
+
+																// Iterate over the lines and add categories or series
+																$.each(lines, function(lineNo, line) {
+																	var items = line.split(',');
+																	
+																	// header line containes categories
+																	if (lineNo == 0) {
+																		$.each(items, function(itemNo, item) {
+																			if (itemNo > 0) options.xAxis.categories.push(item);
+																		});
+																	}
+																	
+																	// the rest of the lines contain data with their name in the first 
+																	// position
+																	else {
+																		var series = {
+																			data: []
+																		};
+																		$.each(items, function(itemNo, item) {
+																			if (itemNo == 0) {
+																				series.name = item;
+																			} else {
+																				series.data.push(parseFloat(item));
+																			}
+																		});
+																		
+																		options.series.push(series);
+							
+						}
+						
+					});
+						// Create the chart
+						var chart = new Highcharts.Chart(options);
+					}
+					else
+					{
+						alert("no data to import");
+					}
+
+					};
+					reader.onerror = function(){
+						alert("unable to read "+file.fileName);
+					}
+					}
+
+					};
+					}
+					}); 
+						
+
+//				else if (chartType == "vBarGraph")
+//				{
+//					$(document).ready(function(){
+//						) 
+				
+
+</script>
+</body>
+
+</html>
