@@ -105,6 +105,10 @@
 						<script src="js/bootstrap.min.js"></script>
 						<script>
 							var data = null;
+							//var chartType = "bar";
+							var res = location.search.split('=');
+                            alert('location='+res[1]);
+							var chartType = res[1];
 							// function refresh()
 							// {
 							// 	window.location.reload();
@@ -112,7 +116,23 @@
 
 							$(document).ready(function(){
 
-								alert('hello ready fucntion');
+								//alert('hello ready fucntion');
+								
+								alert('ready func');
+								document.getElementById('fileupload').addEventListener('change', upload, false);
+
+								function browserSupportFileUpload()
+								{
+									var isCompatible = false;
+									if(window.File && window.FileReader  && window.FileList && window.Blob)
+									{
+										isCompatible = true;
+									}
+									return isCompatible;
+								}
+								function upload(event)
+								{
+								if(chartType=='column'){
 								var options = {
 										    chart: {
 										        renderTo: 'container',
@@ -131,20 +151,6 @@
 										    },
 										    series: []
 										};
-								alert('ready func');
-								document.getElementById('fileupload').addEventListener('change', upload, false);
-
-								function browserSupportFileUpload()
-								{
-									var isCompatible = false;
-									if(window.File && window.FileReader  && window.FileList && window.Blob)
-									{
-										isCompatible = true;
-									}
-									return isCompatible;
-								}
-								function upload(event)
-								{
 									alert('file upload function');
 									if(!browserSupportFileUpload)
 									{
@@ -212,7 +218,628 @@
 								}
 								}
 
+								}
+								else if(chartType=='line')
+								{
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'line'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
 								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								}
+								else if(chartType == 'pie'){
+								
+								var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'pie'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								
+								}
+								else if(chartType == 'bar'){
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'bar'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								} 
+								else if(chartType == 'bubble'){
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'bubble'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								}
+								else if(chartType == 'scatter'){
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'scatter'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								}
+								else if (chartType == 'area'){
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'area'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								}
+								else if (chartType =='columnrange' ){
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'columnrange'
+										    },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
+									alert('file upload function');
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										alert('in else loop');
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												alert("imported -" +data.length + "-rows successfully!");
+
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								
+								}
+								}
 });
 </script>
 </body>
