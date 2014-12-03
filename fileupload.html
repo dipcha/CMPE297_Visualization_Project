@@ -89,7 +89,28 @@
 			
 														</form>
 						</label>
-						<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div><br>
+						<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active test"><a id="tab1" href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    <li role="presentation" class="test"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li role="presentation" class="test"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+    <li role="presentation" class="test"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+	</div>
+    <div role="tabpanel" class="tab-pane" id="profile">...</div>
+    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+  </div>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</div>
+
+						
 </body>
 
 
@@ -103,6 +124,13 @@
 
 						<!-- Bootstrap Core JavaScript -->
 						<script src="js/bootstrap.min.js"></script>
+						<script type="text/javascript">
+						$("#tab1").click(function(){
+						alert("inside jquery click");
+							$("#container").css('background','url(http://www.highcharts.com/samples/graphics/sand.png)');
+							//$("#container").style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+						})
+						</script>
 						<script>
 							var data = null;
 							//var chartType = "bar";
