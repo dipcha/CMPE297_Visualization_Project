@@ -70,9 +70,9 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<ol class="breadcrumb">
-															<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+															<li><i class="fa fa-dashboard"></i> <a href="landing_page.html">Home</a>
 															</li>
-															<li class="active"><i class="fa fa-edit"></i> Forms</li>
+															<li class="active"><i class="fa fa-edit"></i>Charts</li>
 														</ol>
 													</div>
 												</div>
@@ -94,9 +94,9 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active test"><a id="tab1" href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-    <li role="presentation" class="test"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-    <li role="presentation" class="test"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-    <li role="presentation" class="test"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    <li role="presentation" class="test"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Default Theme</a></li>
+    <li role="presentation" class="test"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Grid Light</a></li>
+    <li role="presentation" class="test"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Dark Unica</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -119,14 +119,15 @@
 						<script src="js/downloadRequest.js"></script>
 						<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 						<script src="http://code.highcharts.com/highcharts.js"></script>
+						<script src="http://code.highcharts.com/highcharts-more.js"></script>
 						<script src="http://code.highcharts.com/modules/exporting.js"></script>
+						
 						
 
 						<!-- Bootstrap Core JavaScript -->
 						<script src="js/bootstrap.min.js"></script>
 						<script type="text/javascript">
 						$("#tab1").click(function(){
-						alert("inside jquery click");
 							$("#container").css('background','url(http://www.highcharts.com/samples/graphics/sand.png)');
 							//$("#container").style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
 						})
@@ -135,7 +136,6 @@
 							var data = null;
 							//var chartType = "bar";
 							var res = location.search.split('=');
-                            alert('location='+res[1]);
 							var chartType = res[1];
 							// function refresh()
 							// {
@@ -144,9 +144,7 @@
 
 							$(document).ready(function(){
 
-								//alert('hello ready fucntion');
 								
-								alert('ready func');
 								document.getElementById('fileupload').addEventListener('change', upload, false);
 
 								function browserSupportFileUpload()
@@ -167,7 +165,7 @@
 										        defaultSeriesType: 'column'
 										    },
 										    title: {
-										        text: 'Fruit Consumption'
+										        text: 'Column Chart'
 										    },
 										    xAxis: {
 										        categories: []
@@ -179,15 +177,12 @@
 										    },
 										    series: []
 										};
-										
-									alert('file upload function');
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -197,8 +192,6 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
-
 												var lines = data.split('\n');
 
 											// Iterate over the lines and add categories or series
@@ -256,7 +249,7 @@
 										        defaultSeriesType: 'line'
 										    },
 										    title: {
-										        text: 'Fruit Consumption'
+										        text: 'Line'
 										    },
 										    xAxis: {
 										        categories: []
@@ -268,14 +261,12 @@
 										    },
 										    series: []
 										};
-									alert('file upload function');
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -285,7 +276,6 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
 
 												var lines = data.split('\n');
 
@@ -345,7 +335,7 @@
 										        defaultSeriesType: 'pie'
 										    },
 										    title: {
-										        text: 'Fruit Consumption'
+										        text: 'Pie Chart'
 										    },
 										    xAxis: {
 										        categories: []
@@ -364,7 +354,6 @@
 									}
 									else
 									{
-										alert('in else loop');
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -374,8 +363,6 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
-
 												var lines = data.split('\n');
 
 											// Iterate over the lines and add categories or series
@@ -434,7 +421,7 @@
 										        defaultSeriesType: 'bar'
 										    },
 										    title: {
-										        text: 'Fruit Consumption'
+										        text: 'Bar chart'
 										    },
 										    xAxis: {
 										        categories: []
@@ -446,14 +433,13 @@
 										    },
 										    series: []
 										};
-									alert('file upload function');
+									
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -463,8 +449,7 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
-
+												
 												var lines = data.split('\n');
 
 											// Iterate over the lines and add categories or series
@@ -519,10 +504,11 @@
 									var options = {
 										    chart: {
 										        renderTo: 'container',
-										        defaultSeriesType: 'bubble'
+										        defaultSeriesType: 'bubble',
+												zoomType: 'xy'
 										    },
 										    title: {
-										        text: 'Fruit Consumption'
+										        text: 'Bubble Chart'
 										    },
 										    xAxis: {
 										        categories: []
@@ -534,14 +520,14 @@
 										    },
 										    series: []
 										};
-									alert('file upload function');
+								
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
+									
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -551,7 +537,6 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
 
 												var lines = data.split('\n');
 
@@ -622,6 +607,101 @@
 										    },
 										    series: []
 										};
+								
+									if(!browserSupportFileUpload)
+									{
+										alert("File API not supported in this browser");
+									}
+									else
+									{
+										
+										var file = event.target.files[0];
+										var reader = new FileReader();
+										reader.readAsText(file);
+										reader.onload = function(event)
+										{
+											var data = event.target.result;
+											//data = $.csv.toArrays(csvData);
+											if(data && $.csv.toArrays(data).length >0)
+											{
+												
+												var lines = data.split('\n');
+
+											// Iterate over the lines and add categories or series
+											$.each(lines, function(lineNo, line) {
+												var items = line.split(',');
+												
+												// header line containes categories
+												if (lineNo == 0) {
+													$.each(items, function(itemNo, item) {
+														if (itemNo > 0) options.xAxis.categories.push(item);
+													});
+												}
+												
+												// the rest of the lines contain data with their name in the first 
+												// position
+												else {
+													var series = {
+														data: []
+													};
+													$.each(items, function(itemNo, item) {
+														if (itemNo == 0) {
+															series.name = item;
+														} else {
+															series.data.push(parseFloat(item));
+														}
+													});
+
+													
+													options.series.push(series);
+													
+												}
+												
+											});
+									
+									// Create the chart
+									var chart = new Highcharts.Chart(options);
+								}
+								else
+								{
+									alert("no data to import");
+								}
+
+								};
+								reader.onerror = function(){
+									alert("unable to read "+file.fileName);
+								}
+								}
+
+								
+								}
+								else if (chartType == 'donut'){
+
+									var options = {
+										    chart: {
+										        renderTo: 'container',
+										        defaultSeriesType: 'pie'
+										    },
+
+										    plotOptions: {
+									            pie: {
+									                borderColor: '#000000',
+									                innerSize: '60%'
+									            }
+									        },
+										    title: {
+										        text: 'Fruit Consumption'
+										    },
+										    xAxis: {
+										        categories: []
+										    },
+										    yAxis: {
+										        title: {
+										            text: 'Units'
+										        }
+										    },
+										    series: []
+										};
 									alert('file upload function');
 									if(!browserSupportFileUpload)
 									{
@@ -690,6 +770,8 @@
 								}
 
 								
+								
+								
 								}
 								else if (chartType == 'area'){
 									var options = {
@@ -710,14 +792,14 @@
 										    },
 										    series: []
 										};
-									alert('file upload function');
+									
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
+										
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -727,8 +809,7 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
-
+												
 												var lines = data.split('\n');
 
 											// Iterate over the lines and add categories or series
@@ -798,14 +879,14 @@
 										    },
 										    series: []
 										};
-									alert('file upload function');
+								
 									if(!browserSupportFileUpload)
 									{
 										alert("File API not supported in this browser");
 									}
 									else
 									{
-										alert('in else loop');
+										
 										var file = event.target.files[0];
 										var reader = new FileReader();
 										reader.readAsText(file);
@@ -815,8 +896,7 @@
 											//data = $.csv.toArrays(csvData);
 											if(data && $.csv.toArrays(data).length >0)
 											{
-												alert("imported -" +data.length + "-rows successfully!");
-
+												
 												var lines = data.split('\n');
 
 											// Iterate over the lines and add categories or series
