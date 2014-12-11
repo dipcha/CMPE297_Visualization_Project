@@ -1,19 +1,252 @@
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/function.js"></script>
-<script src="js/highcharts-custom.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Visualization on the fly</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This site enables you to render different charts from csv file">
+    <meta name="author" content="">
 
-<br>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+   <!--localization scripts from localplanet -->
+	     <script src="http://www.localeplanet.com/api/auto/icu.js"></script>
+       <script src="http://www.localeplanet.com/api/translate.js"></script>
+       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>	
+
+</head>
+
 <body>
+<header>
+<nav id="language" class= "nav pull-right">
+  <ul>
+    <a href="index.html" hreflang="en"><abbr lang="en" title="English">en</abbr></a>
+    <a href="fr.html" hreflang="fr"><abbr lang="fr" title="Français">fr</abbr></a>
+    <a href="sp.html" hreflang="sp"><abbr lang="es" title="español">sp</abbr></a>
+    <a href="ch.html" hreflang="zh-Hans"><abbr lang="zh-Hans" title="中国">中国</abbr></a>
+    <a href="ja.html" hreflang="ja"><abbr lang="ja" title="日本人"日本人>日本人</abbr></a>
+    
+  </ul>
+</nav>
+<div class="brand">
+	Visualization on the Fly !
+</div>
+</header>
 
-<div id="lineChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black; float:left;"></div>
-<div id="pieChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;"></div><br>
-<div id="donutChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;float:left;"></div>
-<div id="barChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;"></div><br>
-<div id="scatterChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;float:left;"></div>
-<div id="bubbleChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;"></div><br>
-<div id="masterdetailChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;float:left;"></div>
-<div id="3DpieChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;"></div><br>
-<div id="3DdonutChart" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;float:left;"></div>
-<div id="largeHeatMap" style="width: 30%;height: 350px;margin: 0 auto;border: 1px solid black;"></div><br>
+    <div class="container">
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <div id="carousel-example-generic" class="carousel slide">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators hidden-xs">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-4.jpeg" alt="">
+                            </div>
+							<div class="col-md-6">
+							<h1>Pie charts</h1>
+							<font name="helvetics" size="4"><p>A pie chart (or a circle chart) is a circular statistical graphic, which is divided into sectors to illustrate numerical proportion. In a pie chart, the arc length of each sector , is proportional to the quantity it represents. </p></font>
+							</div>
+							</div>
+                            <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-5.jpeg" alt="">
+							</div>
+							<div class="col-md-6">
+							<h1>Donut chart</h1>
+							 <font name="helvetics" size="4"><p>Donut chart displays value data as percentages of the whole. Categories are represented by individual slices. Donut charts are functionally identical to pie charts.</p></font>
+							</div>
+                            </div>
+							<div class="item col-md-12">
+							
+							<div class="col-md-6">
+								<figure>
+									<img class="img-responsive img-full" src="img/slide-6.png" alt="">
+								</figure>
+							</div>
+							
+							<div class="col-md-6">
+							<h1>Bar Chart</h1>
+							<font name="helvetics" size="4">
+							<p>A bar chart or bar graph is a chart with rectangular bars with lengths proportional to the values that they represent. The bars can be plotted vertically or horizontally. </p></font>
+							</div>
+                            </div>
+                            <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-3.jpeg" alt="">
+								</div>
+								<div class="col-md-6">
+							<h1>Line Chart</h1>
+							<font name="helvetics" size="4"><p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments. It is a basic type of chart common in many fields.</p></font>
+							</div>
+								</div>
+							 <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-6.jpeg" alt="">
+								</div>
+								<div class="col-md-6">
+							<h1>Column Chart</h1>
+							<font name="helvetics" size="4"><p>A column chart is a vertical bar chart rendered in the browser using SVG or VML, whichever is appropriate for the user's browser. Like all Google charts, column charts display tooltips when the user hovers over the data.</p></font>
+							</div>
+								</div>
+							 <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-9.jpeg" alt="">
+								</div>
+								<div class="col-md-6">
+							<h1>Area chart</h1>
+							<font name="helvetics" size="4"><p>An area chart or area graph displays graphically quantitive data. It is based on the line chart. The area between axis and line are commonly emphasized with colors, textures and hatchings. Commonly one compares with an area chart two or more quantities.</p></font>
+							</div>
+							</div>
+								 <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-7.jpeg" alt="">
+								</div>
+								<div class="col-md-6">
+							<h1>Scatter Plot</h1>
+							<font name="helvetics" size="4"><p>A scatter plot, scatterplot, or scattergraph is a type of mathematical diagram using Cartesian coordinates to display values for two variables for a set of data.</p></font>
+							</div>
+								</div>
+								 <div class="item col-md-12">
+							<div class="col-md-6">
+                                <img class="img-responsive img-full" src="img/slide-8.jpeg" alt="">
+								</div>
+								<div class="col-md-6">
+							<h1>Bubble chart</h1>
+							<font name="helvetics" size="4"><p>A bubble chart is a type of chart that displays three dimensions of data. Bubble charts can facilitate the understanding of social, economical, medical, and other scientific relationships.</p></font>
+							</div>
+								</div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="icon-prev"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="icon-next"></span>
+                        </a>
+                    </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+	<!--- Thumbnails --->
+	<div class="row">
+  <div class="col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-8.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=bubble" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Click to generate a bubble chart" role="button">Generate Bubble chart</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-7.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=scatter" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Click to generate a scatter plot" role="button">Generate Scatter Plot</a> </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-5.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=donut" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Click to generate a donut chart" role="button">Generate Donut chart</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-3.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=line" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Click to generate a line chart" role="button">Generate Line chart</a> </p>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+<div class="row">
+  <div class="col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-4.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=pie" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Click to generate a pie chart" role="button">Generate Pie chart</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-6.png" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=bar" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Click to generate a bar chart" role="button">Generate Bar Chart</a> </p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-6.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=column"  data-toggle="tooltip" data-placement="left" title="Click to generate a 3D column" class="btn btn-primary" role="button">Generate column chart</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-offset-1 col-md-2">
+    <div class="thumbnail">
+      <img src="img/slide-9.jpeg" alt="...">
+      <div class="caption">
+        <p><a href="fileupload.html?chart=area" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Click to generate a semi circle donut" role="button">Generate Area chart</a> </p>
+      </div>
+    </div>
+  </div>
+  </div>
+	<!--/Thumbnails-->
+    <footer>
+        <div class="container" style="height:80px;margin-top:130px">
+                <div class="text-center">
+                    <p> &copy; UX Booth Fall 2014</p> 
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
 </body>
+
+</html>
